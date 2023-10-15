@@ -51,3 +51,14 @@ data |>
        title = "Regular Price vs Amount of Price Reduced",
        subtitle = "the reduced price increases as the original price increases") +
   theme_bw()
+
+# plot of rating vs quantity_avaliable
+data |>
+  ggplot(aes(x = customer_rating, y = quantity_avaliable)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)
+
+#
+data <- data |>
+  mutate(damage_percentage = customer_rating/quantity_avaliable) |>
+  arrange(desc(damage_percentage))
