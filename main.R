@@ -38,27 +38,12 @@ data <- data |>
 data <- data |>
   mutate(price_change = regular_price - reduced_price)
 
-
-# plot of regular_price and price_change
-data |>
-  ggplot(aes(x = regular_price, y = price_change)) +
-  geom_point() +
-  geom_smooth(method = lm, se=FALSE) +
-  scale_x_continuous(labels = scales::dollar_format()) +
-  scale_y_continuous(labels = scales::dollar_format()) +
-  labs(x = "Original Price",
-       y = "Price Reduced",
-       title = "Regular Price vs Amount of Price Reduced",
-       subtitle = "the reduced price increases as the original price increases") +
-  theme_bw()
-
-# plot of rating vs quantity_avaliable
-data |>
-  ggplot(aes(x = customer_rating, y = quantity_avaliable)) +
-  geom_point() +
-  geom_smooth(method = lm, se = FALSE)
-
-#
+# add percent reduced column
 data <- data |>
-  mutate(damage_percentage = customer_rating/quantity_avaliable) |>
+  mutate(percent_reduced = price_change/regular_price)
+
+# damage percent
+data <- data |>
+  mutate(damage_percentage = customer_rating*percent_reduced/quantity_avaliable) |>
   arrange(desc(damage_percentage))
+
