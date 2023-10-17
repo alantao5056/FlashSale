@@ -40,6 +40,7 @@ data |>
   geom_col() +
   theme(axis.text.x = element_text(angle=25, vjust = 0.5)) +
   labs(title = "Damage Percentage By Department",
+       subtitle = "appliances are the most easily damaged",
        x = "Department",
        y = "Damage Percentage")
   
